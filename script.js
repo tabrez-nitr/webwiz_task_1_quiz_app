@@ -65,32 +65,41 @@ let option1 = $('.btn-a');
 let option2 = $('.btn-b');
 let option3 = $('.btn-c');
 let option4 = $('.btn-d');
+let qNo = document.getElementById("qNo");
+let points = document.getElementById("points");
 
 
 //<-----Dispalying Functions------>
 function displayQuestionAnsOption(){
-    
+    qNo.innerHTML = `Q ${count+1}`;
+    displayPoints();
     question.html(quizData[count].question);
     option1.html (quizData[count].options[0]);
     option2.html (quizData[count].options[1]);
     option3.html (quizData[count].options[2]);
     option4.html (quizData[count].options[3]);
 }
+function displayPoints(){
+points.innerHTML = `Points: ${totalScore}`;
+}
 function resetButtons() {
     $(".button").css({
         "border-color": "",
         "border-width": "",
-        "background-color": ""
+        "background-color": "",
+        "color": ""
     });
 }
 
 function markCorrectAnswer(temp){
     
-    temp.style.cssText = "border-color: green; border-width: 2px; background-color: #B0FABC;";
+    temp.style.cssText = "border-color: green; border-width: 2px; color: green"; 
+    //  background-color: #B0FABC;
     }
 
 function markWrongAnswer(temp){
-    temp.style.cssText = "border-color: red; border-width: 2px; background-color: #ffcfcf;";
+    temp.style.cssText = "border-color: red; border-width: 2px; color: red";
+    // background-color: #ffcfcf;
 }
 
 
@@ -121,6 +130,8 @@ function enableButtons(){
         disableButtons();
         //after selecting question stop the timer ;
         storePreviousTime();
+        // mark the naviation button
+        markNavigation();
 
         //make attempted true 
         quizData[count].attempted = true;
@@ -133,16 +144,17 @@ function enableButtons(){
     console.log("buttons Disabled");
     $(".button").off('click');
  }
+
  //.......Checking For Correct Solution........
  function checkForCorrectAnswer(temp){ //temp is targeted element
     let selectedOption = Number(temp.dataset.value);
     //marking which option did user slected  
     quizData[count].selectedOption = selectedOption;
+    
 
     if(selectedOption === quizData[count].correctOptionIndex){
         playCorrectSound();
         totalScore+=4;
-        
         markCorrectAnswer(temp);
     }
     else{
@@ -152,6 +164,7 @@ function enableButtons(){
         markWrongAnswer(temp);
         markCorrectAnswer($(".button").eq(quizData[count].correctOptionIndex)[0]);
     }
+    displayPoints();
     pointsUpdate();
     automate();
 
@@ -211,7 +224,10 @@ function storePreviousTime(){
     quizData[count].time = tempTime;
     console.log("store PreviousTime : " +quizData[count].time);
 }
-
+function markNavigation()
+{
+    $(navigationButton[count]).addClass("userAttempted"); // Adds the class "active" to the button at index temp
+}
 let navigationButton = $(".nav-btn");
 navigationButton.click(function(){
     storePreviousTime();

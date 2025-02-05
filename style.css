@@ -4,6 +4,10 @@
     color: black;
     font-size: 20px;
     font-family: sans-serif;
+    color: rgba(255, 255, 255, 0.742);
+}
+body{
+    background-image: url("./media/backGround-1.jpg");
 }
 .main-container{
     margin-top: 80px;
@@ -14,7 +18,9 @@
 .game-container{
     width: 70%;
     height: 500px;
-    border: 2px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.764);
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.266);
+    border-radius: 3px ;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -24,6 +30,7 @@
     /* border: 1px solid black; */
     width: 97%;
     height: 30%;
+    margin-top: 5px;
     margin-bottom: 20px;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -33,15 +40,18 @@
     
 }
 .q-no{
-    border: 1px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.343);
     width: 15%;
     height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .question{
-    border: 1px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.386);
     grid-column: span 2;
     height: 80%;
-    margin-top: 5px;
+    margin-top: 4px;
     margin-bottom: 30px;
     text-align: center;
     display: flex;
@@ -51,8 +61,11 @@
 .your-score{
     width: 30%;
     height: 40px;
-    border: 1px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.303);
     margin-left: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .button-container{
     display: grid;
@@ -63,7 +76,8 @@
     justify-content: center;
 }
 .button{
-    border: 1px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.504);
+    background: none;
     width: 97%;
     height: 50px;
     /* margin-bottom: 5px; */
@@ -82,7 +96,7 @@
 
     width: 180px;
     height: 50px;
-    border: 1px soild black;
+    border: 1px soild white;
     
 }
 .navigation{
@@ -90,13 +104,11 @@
     justify-content: center;
     margin-top: 20px;
     gap: 10px;
-}
-.nav-btn{
-    padding: 7px 10px;
     
 }
+
 .timer{
-    border: 1px solid black;
+    border: 1px solid rgba(255, 255, 255, 0.478);
     padding: 10px;
     margin-top: 10px;
 }
@@ -114,6 +126,24 @@
     background-color: #ffcfcf;
 }
 .nav-btn{
-    border: 1px solid rgb(210, 49, 49);
-    background-color: white;
+    padding: 7px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.321);
+    background: none;
+    border-radius: 2px;
+}
+.timer-nav
+{
+    margin-top:4%;
+    width: 90%;
+    /* border: 1px solid white; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.userAttempted{
+    /* border: 2px solid rgba(86, 45, 221, 0.18); */
+    background-color: rgba(12, 72, 64, 0.608);
+    /* color: rgba(45, 45, 221, 0.403); */
+    border-radius: 2px;
 }
