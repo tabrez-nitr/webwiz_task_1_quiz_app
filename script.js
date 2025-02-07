@@ -7,7 +7,7 @@ const quizData = [
         correctOptionIndex : 1,
         time : 30,
         attempted :false,
-        visited : false,
+        skipped : false,
         selectedOption : null
     },
     {//Q2
@@ -17,7 +17,7 @@ const quizData = [
         correctOptionIndex : 0,
         time : 30,
         attempted :false,
-        visited : false,
+        skipped : false,
         selectedOption : 5
     },
     { //Q3
@@ -26,7 +26,7 @@ const quizData = [
         correctOptionIndex : 1 ,
         time : 30,
         attempted :false,
-        visited : false,
+        skipped : false,
         selectedOption : null
     },
     { //Q4
@@ -35,7 +35,7 @@ const quizData = [
         correctOptionIndex : 3,
         time : 30,
         attempted :false,
-        visited : false,
+        skipped : false,
         selectedOption : null
 
     },
@@ -46,7 +46,7 @@ const quizData = [
         correctOptionIndex : 2,
         time : 30,
         attempted :false,
-        visited : false,
+        skipped : false,
         selectedOption : null
     }
 
@@ -59,6 +59,7 @@ const quizData = [
 //<------cretaing Variables----->
 let count = 0;
 let totalScore = 0;
+let countAttempted = 0; // count number of question attempted
 //<----Target Elements---------->
 let question = $(".question");
 let option1 = $('.btn-a');
@@ -67,6 +68,7 @@ let option3 = $('.btn-c');
 let option4 = $('.btn-d');
 let qNo = document.getElementById("qNo");
 let points = document.getElementById("points");
+
 
 
 //<-----Dispalying Functions------>
@@ -126,6 +128,7 @@ function enableButtons(){
         
 
         checkForCorrectAnswer(event.target);
+        countAttempted++; //user attempts question 
         //after selecting disable other options 
         disableButtons();
         //after selecting question stop the timer ;
@@ -200,7 +203,8 @@ function timer() {
             console.log("Clear Interval");
             disableButtons();
             console.log("marking correct ans for this question");
-            markCorrectAnswer($(".button").eq(quizData[count].correctOptionIndex)[0]);
+            quizData[count].skipped =true;
+            // markCorrectAnswer($(".button").eq(quizData[count].correctOptionIndex)[0]);
             // moveToNext();
             // count++;
             if(!quizData[count].attempted)
@@ -228,21 +232,26 @@ function markNavigation()
 {
     $(navigationButton[count]).addClass("userAttempted"); // Adds the class "active" to the button at index temp
 }
+
 let navigationButton = $(".nav-btn");
 navigationButton.click(function(){
     storePreviousTime();
-    count++;
+    // count++;
     let temp = $(this).text() - 1;
     count = temp;
     updateTimer();
     // clearing all the previous timers
     clearInterval(timeInterval);
-    // clearTimeout(timeout);
+    clearInterval(automateControl);
     
-    // clearTimeout(timeout);
+    
     displayQuestionAnsOption();
     resetButtons();
-    if(quizData[count].attempted === true)
+    if(quizData[count].skipped === true)
+    {
+        disableButtons();
+    }
+    if(quizData[count].attempted === true && quizData[count].skipped === false)
     {
         
         disableButtons();
@@ -264,17 +273,49 @@ navigationButton.click(function(){
     
 });
 // continue from here
+
+// trying to fix bug 
+function bugFix(){
+    displayQuestionAnsOption();
+    resetButtons();
+    if(quizData[count].skipped === true)
+    {
+        disableButtons();
+    }
+    if(quizData[count].attempted === true && quizData[count].skipped === false)
+    {
+        
+        disableButtons();
+        if(quizData[count].selectedOption === quizData[count].correctOptionIndex)
+        {
+            // if correct option is marked
+            markCorrectAnswer($(".button").eq(quizData[count].correctOptionIndex)[0]);
+        }
+        else{
+            markCorrectAnswer($(".button").eq(quizData[count].correctOptionIndex)[0]);
+            markWrongAnswer($(".button").eq(quizData[count].selectedOption)[0]);
+        }
+    }
+    else{
+        
+        timer();
+        enableButtons();
+    }
+}
 function copyOfNavigation(){
+    count++;
+    displayQuestionAnsOption();
+    bugFix();
     console.log("copy of navigation called");
     storePreviousTime();
-    resetButtons();
-    count++;
+    // resetButtons();
+    // count++;
     updateTimer();
     clearInterval(timeInterval);
     clearInterval(automateControl);
     displayQuestionAnsOption();
-    timer();
-    enableButtons();
+    // timer();
+    // enableButtons();
     clearInterval(automateControl);
 
 }
@@ -314,4 +355,47 @@ function automate()
 displayQuestionAnsOption();
 timer();
 enableButtons();
+$(".outer-game-end").hide();
+
+
+
+
+
+//<----------game end function ------->
+
+
+// result page
+
+let questionAttempted= document.getElementById("question-attempted");
+let questionSkipped = document.getElementById("question-skipped");
+let finalScore = document.getElementById("final-score");
+
+
+function displayScoreCard()
+{
+    questionAttempted.textContent = `Attempted : ${countAttempted}`;
+    questionSkipped.textContent = `Skipped : ${5-countAttempted}`;
+    finalScore.textContent = `Total Points : ${totalScore}`;
+}
+
+
+let submitButton = $("#submit");
+
+
+submitButton.click(function () {
+    // Hide the main-container
+    $(".main-container").hide();
+
+    // Show the outer-game-end div
+    $(".outer-game-end").show();
+
+    // Call the displayScoreCard function to update the results
+    displayScoreCard();
+    let video = document.getElementById("kbc-video");
+    video.play();
+
+});
+
+
+
 
