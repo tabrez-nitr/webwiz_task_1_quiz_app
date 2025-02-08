@@ -253,7 +253,7 @@ navigationButton.click(function(){
     {
         disableButtons();
     }
-    if(quizData[count].attempted === true && quizData[count].skipped === false)
+    else if(quizData[count].attempted === true && quizData[count].skipped === false)
     {
         
         disableButtons();
