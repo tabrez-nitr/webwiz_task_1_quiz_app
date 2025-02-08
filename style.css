@@ -199,6 +199,9 @@ video{
 
 
 @media (max-width: 500px) {
+    body{
+        padding: 7px;
+    }
     .game-container{
         width: 95%;
     }
@@ -207,7 +210,7 @@ video{
         flex-direction: column;
     }
     .game-end{
-        width: 95%;
+        width: 90%;
     }
 }
 
