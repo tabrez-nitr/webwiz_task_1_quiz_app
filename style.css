@@ -200,7 +200,14 @@ video{
 
 @media (max-width: 500px) {
     .game-container{
-        width: 100%;
+        width: 95%;
+    }
+    .timer-nav{
+        display: flex;
+        flex-direction: column;
+    }
+    .game-end{
+        width: 95%;
     }
 }
 
