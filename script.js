@@ -158,11 +158,13 @@ function enableButtons(){
     if(selectedOption === quizData[count].correctOptionIndex){
         playCorrectSound();
         totalScore+=4;
+        alertCorrect();
         markCorrectAnswer(temp);
     }
     else{
         playWrongSound();
         totalScore-=1;
+        alertWrong();
         
         markWrongAnswer(temp);
         markCorrectAnswer($(".button").eq(quizData[count].correctOptionIndex)[0]);
@@ -357,9 +359,24 @@ displayQuestionAnsOption();
 timer();
 enableButtons();
 $(".outer-game-end").hide();
+$("#correctAnswer").hide();
+$("#wrongAnswer").hide();
 
 
-
+function alertCorrect()
+{
+    $("#correctAnswer").show();
+    setTimeout(()=>{
+        $("#correctAnswer").hide();
+    },3000);
+}
+function alertWrong()
+{
+    $("#wrongAnswer").show();
+    setTimeout(()=>{
+        $("#wrongAnswer").hide();
+    },3000);
+}
 
 
 //<----------game end function ------->
