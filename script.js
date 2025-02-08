@@ -314,7 +314,7 @@ function copyOfNavigation(){
     clearInterval(timeInterval);
     clearInterval(automateControl);
     displayQuestionAnsOption();
-    // timer();
+    timer();
     // enableButtons();
     clearInterval(automateControl);
 
@@ -341,7 +341,8 @@ function automate()
                 if (count < quizData.length - 1) {
                     console.log(count);
                     copyOfNavigation();
-                } else {
+                } else 
+                {
                     console.log(count);
                     clearInterval(automateControl);
                 }
