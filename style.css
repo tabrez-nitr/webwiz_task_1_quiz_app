@@ -238,5 +238,11 @@ video{
     .game-end{
         width: 90%;
     }
+    #correctAnswer{
+        margin-left: 57%;
+    }
+    #wrongAnswer{
+        margin-left: 57%;
+    }
 }
 
